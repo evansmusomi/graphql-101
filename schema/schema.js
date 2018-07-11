@@ -1,6 +1,7 @@
 const graphql = require("graphql");
 const axios = require("axios");
 const { GraphQLObjectType, GraphQLString, GraphQLInt, GraphQLSchema } = graphql;
+const jsonApiBaseUrl = "http://localhost:3000";
 
 const CompanyType = new GraphQLObjectType({
   name: "Company",
@@ -21,7 +22,7 @@ const UserType = new GraphQLObjectType({
       type: CompanyType,
       resolve(parentValue, args) {
         return axios
-          .get(`http://localhost:3000/companies/${parentValue.companyId}`)
+          .get(`${jsonApiBaseUrl}/companies/${parentValue.companyId}`)
           .then(response => response.data);
       }
     }
@@ -36,7 +37,16 @@ const RootQuery = new GraphQLObjectType({
       args: { id: { type: GraphQLString } },
       resolve(parentValue, args) {
         return axios
-          .get(`http://localhost:3000/users/${args.id}`)
+          .get(`${jsonApiBaseUrl}/users/${args.id}`)
+          .then(response => response.data);
+      }
+    },
+    company: {
+      type: CompanyType,
+      args: { id: { type: GraphQLString } },
+      resolve(parentValue, args) {
+        return axios
+          .get(`${jsonApiBaseUrl}/companies/${args.id}`)
           .then(response => response.data);
       }
     }
