@@ -1,12 +1,6 @@
 {
   "users": [
     {
-      "id": "12",
-      "firstName": "Luffy",
-      "age": 20,
-      "companyId": "1"
-    },
-    {
       "id": "34",
       "firstName": "Naruto",
       "age": 17,
